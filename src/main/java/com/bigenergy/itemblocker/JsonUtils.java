@@ -23,8 +23,21 @@ public class JsonUtils {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static final Logger LOGGER = LogManager.getLogger();
 
+    public static Path getOrCreateDirectory(Path dirPath, String dirLabel) {
+        if (!Files.isDirectory(dirPath))
+        {
+            try {
+                Files.createDirectories(dirPath);
+            } catch (IOException e) {
+                throw new RuntimeException("Problem creating directory", e);
+            }
+        }
+
+        return dirPath;
+    }
+
     public static File initialize(Path folder, String folderName, String fileName) {
-        File file = new File(FileUtils.getOrCreateDirectory(folder, folderName).toFile(), fileName);
+        File file = new File(getOrCreateDirectory(folder, folderName).toFile(), fileName);
         try {
             if(file.createNewFile()) {
                 Path defaultConfigPath = FMLPaths.GAMEDIR.get().resolve(FMLConfig.defaultConfigPath()).resolve("itemblocker.json");

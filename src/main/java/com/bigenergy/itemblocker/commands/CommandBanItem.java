@@ -19,6 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.function.Supplier;
+
 public class CommandBanItem implements Command<CommandSourceStack> {
     private static final CommandBanItem CMD = new CommandBanItem();
 
@@ -45,7 +47,7 @@ public class CommandBanItem implements Command<CommandSourceStack> {
             return 1;
         JsonUtils.appendItemToJson(ItemBlocker.BANLIST, item);
 
-        context.getSource().sendSuccess(Component.literal("Item " + ForgeRegistries.ITEMS.getKey(item).toString() + " banned!"), false);
+        context.getSource().sendSuccess(() -> Component.literal("Item " + ForgeRegistries.ITEMS.getKey(item).toString() + " banned!"), false);
 
         PlayerList playerList = context.getSource().getServer().getPlayerList();
 

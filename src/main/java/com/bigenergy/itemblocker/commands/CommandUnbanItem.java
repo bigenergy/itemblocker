@@ -32,7 +32,7 @@ public class CommandUnbanItem implements Command<CommandSourceStack> {
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         try {
             JsonUtils.removeItemFromJson(ItemBlocker.BANLIST, ItemArgument.getItem(context, "item").getItem());
-            context.getSource().sendSuccess(Component.literal("Item " + ForgeRegistries.ITEMS.getKey(ItemArgument.getItem(context, "item").getItem()).toString() + " unbanned!"), false);
+            context.getSource().sendSuccess(() -> Component.literal("Item " + ForgeRegistries.ITEMS.getKey(ItemArgument.getItem(context, "item").getItem()).toString() + " unbanned!"), false);
         } catch(IndexOutOfBoundsException e) {
             context.getSource().sendFailure(Component.literal("Failed to unban item"));
         }
@@ -43,7 +43,7 @@ public class CommandUnbanItem implements Command<CommandSourceStack> {
         @Override
         public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
             JsonUtils.removeAllItemsFromJson(ItemBlocker.BANLIST);
-            context.getSource().sendSuccess(Component.literal("All items are unbanned!"), false);
+            context.getSource().sendSuccess(() -> Component.literal("All items are unbanned!"), false);
             return 0;
         }
     }

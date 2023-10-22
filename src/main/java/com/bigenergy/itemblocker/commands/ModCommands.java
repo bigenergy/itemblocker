@@ -16,6 +16,6 @@ public class ModCommands {
                         .then(CommandBanList.register(dispatcher, context))
         );
 
-        dispatcher.register(Commands.literal("itemblocker").redirect(cmdTut));
+        dispatcher.register(Commands.literal("ib").redirect(cmdTut));
     }
 }

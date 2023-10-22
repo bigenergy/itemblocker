@@ -2,6 +2,7 @@ package com.bigenergy.itemblocker;
 
 import com.bigenergy.itemblocker.commands.ModCommands;
 import com.bigenergy.itemblocker.config.ItemBlockerConfig;
+import com.bigenergy.itemblocker.integration.curios.CuriosEventHandler;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +18,7 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -47,6 +49,11 @@ public class ItemBlocker {
                 ItemBlockerConfig.COMMON_CONFIG, "itemblocker" + File.separator + "ItemBlocker.toml");
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        if (ModList.get().isLoaded("curios") && ItemBlockerConfig.integrations.enableCuriosIntegration.get()) {
+            LOGGER.info("Curios found, integration enabled");
+            MinecraftForge.EVENT_BUS.register(CuriosEventHandler.class);
+        }
     }
 
     @SubscribeEvent

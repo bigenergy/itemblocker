@@ -22,7 +22,6 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.network.NetworkConstants;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +42,7 @@ public class ItemBlocker {
     public static List<Item> BANNED_ITEMS = new ArrayList<>();
 
     public ItemBlocker() {
-        ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+        ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> IExtensionPoint.DisplayTest.IGNORESERVERONLY, (a, b) -> true));
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,
                 ItemBlockerConfig.COMMON_CONFIG, "itemblocker" + File.separator + "ItemBlocker.toml");
